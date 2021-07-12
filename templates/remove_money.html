@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Remove Money
+{% endblock %}
+
+{% block main %}
+    <form action="/remove_money" method="post">
+        <div class="form-group">
+            <input class="form-control" name="money" placeholder="Money" type="number" min="1" step="any">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Remove Money</button>
+    </form>
+{% endblock %}
