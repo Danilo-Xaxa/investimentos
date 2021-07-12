@@ -1,3 +1,9 @@
+@charset "UTF-8";
+
+:root {
+    --red: #ea433b;
+}
+
 nav .navbar-brand
 {
     /* size for brand */
@@ -11,7 +17,7 @@ nav .navbar-brand .blue
 }
 nav .navbar-brand .red
 {
-    color: #ea433b;
+    color: var(--red);
 }
 nav .navbar-brand .yellow
 {
@@ -48,4 +54,16 @@ main img
 
 footer {
     margin-bottom: 25px;
+}
+
+footer > p {
+    color: white !important;
+}
+
+footer > a {
+    color: var(--red) !important; /* não funciona (?) */
+}
+
+body {
+    background-color: purple !important;
 }

@@ -47,8 +47,8 @@ def day_time():
 
 """ # Checks if password is strong enough (use only when the project is finished)
 def is_strong(password):
-    Checking if the password has any number and is long enough (6 digits)
-    if any(char.isdigit() for char in password) and len(password) >= 6:
+    Checking if the password has any number and is long enough (8 digits)
+    if any(char.isdigit() for char in password) and len(password) >= 8:
         return True
     else:
         return False
@@ -259,10 +259,13 @@ def sell():
 
         shares = db.execute("SELECT SUM(shares) FROM ? WHERE stock_symbol = ?", table_name, request.form.get("symbol"))[0]["SUM(shares)"]
 
-        if int(request.form.get("shares")) > shares:
+        if not request.form.get("shares"):
+            return apology("No shares?")
+
+        elif int(request.form.get("shares")) > shares:
             return apology("You don't have enough shares")
 
-        elif int(request.form.get("shares")) < 0:
+        elif int(request.form.get("shares")) <= 0:
             return apology("Non-positive number of shares")
 
         else:
