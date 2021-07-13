@@ -67,10 +67,10 @@ def index():
     user_id = session.get('user_id')
     table_name = f'stocks_user{user_id}'
     db.execute("CREATE TABLE IF NOT EXISTS ? (stock_symbol TEXT NOT NULL, shares NUMBER NOT NULL, price NUMBER NOT NULL, time TEXT NOT NULL)", table_name)
-    money = db.execute("SELECT money FROM users WHERE id = ?", user_id)[0]['money']
+    money = db.execute("SELECT dinheiro FROM users WHERE id = ?", user_id)[0]['dinheiro']
     total_value_in_stocks = 0
 
-    rows = db.execute('SELECT DISTINCT stock_symbol FROM ? WHERE NOT stock_symbol="MONEY" GROUP BY stock_symbol HAVING SUM(shares) >= 1', table_name)
+    rows = db.execute('SELECT DISTINCT stock_symbol FROM ? WHERE NOT stock_symbol="DINHEIRO" GROUP BY stock_symbol HAVING SUM(shares) >= 1', table_name)
     for row in rows:
         row["company_name"] = lookup(row["stock_symbol"])['name']
         row["price_stock"] = lookup(row["stock_symbol"])['price']
@@ -94,26 +94,26 @@ def buy():
         try:
             shares = int(request.form.get('shares'))
         except:
-            return apology('Non-integer number of shares')
+            return apology('Quantidade de ações não inteira')
 
         if shares < 0:
-            return apology('Non-positive number of shares')
+            return apology('Quantidade de ações não positiva')
         elif not lookup(request.form.get('symbol')):
-            return apology('Invalid stock symbol')
+            return apology('Código de ação inválido')
 
         stock_symbol = request.form.get('symbol')
         price = lookup(stock_symbol)['price']
         total_purchase_cost = round((price * shares), 2)
         user_id = session.get('user_id')
-        user_money = db.execute('SELECT money FROM users WHERE id = ?', user_id)[0]['money']
+        user_money = db.execute('SELECT dinheiro FROM users WHERE id = ?', user_id)[0]['dinheiro']
 
         if total_purchase_cost > user_money:
-            return apology("Insufficient money")
+            return apology("Dinheiro insuficiente")
 
         table_name = f'stocks_user{user_id}'
         db.execute("CREATE TABLE IF NOT EXISTS ? (stock_symbol TEXT NOT NULL, shares NUMBER NOT NULL, price NUMBER NOT NULL, time TEXT NOT NULL)", table_name)
         db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, stock_symbol, shares, price, day_time())
-        db.execute("UPDATE users SET money = ? WHERE id = ?", (user_money - total_purchase_cost), user_id)
+        db.execute("UPDATE users SET dinheiro = ? WHERE id = ?", (user_money - total_purchase_cost), user_id)
 
         return redirect('/')
 
@@ -143,24 +143,24 @@ def login():
 
         # Ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username", 403)
+            return apology("Nenhum nome digitado", 403)
 
         # Ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password", 403)
+            return apology("Nenhuma senha digitada", 403)
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("invalid username and/or password", 403)
+            return apology("Nome ou senha inválida", 403)
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
 
         # Redirect user to home page
-        flash('Successfully logged in!')
+        flash('Você entrou com sucesso!')
         return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
@@ -192,13 +192,13 @@ def quote():
         quoted_dict = lookup(stock_symbol)
 
         if quoted_dict == None:
-            return apology('Invalid stock symbol')
+            return apology('Código de ação inválido')
 
         else:
             stock = quoted_dict['name']
             symbol = quoted_dict['symbol']
             price = quoted_dict['price']
-            quoted_text = f"A share of {stock} ({symbol}) costs"
+            quoted_text = f"Uma ação da {stock} ({symbol}) custa"
 
         return render_template('quoted.html', quoted_text=quoted_text, price=price)
 
@@ -216,19 +216,19 @@ def register():
             all_usernames.append(row["username"])
 
         if not request.form.get('username'):
-            return apology('No username?')
+            return apology('Nenhum nome digitado')
 
         elif request.form.get('username') in all_usernames:
-            return apology('Username already exists')
+            return apology('Nome já cadastrado')
 
         elif not request.form.get('password') or not request.form.get('confirmation'):
-            return apology('Please type the password twice')
+            return apology('Digite a senha duas vezes')
 
         elif request.form.get('password') != request.form.get('confirmation'):
-            return apology('Typed passwords are not the same')
+            return apology('As senhas digitadas não correspondem')
 
         elif not strong_enough(request.form.get('password')):
-            return apology('Password too short or no numbers/letters in it')
+            return apology('Senha curta demais ou sem número/letra')
 
         username = request.form.get('username')
         password = request.form.get('password')
@@ -236,7 +236,7 @@ def register():
 
         session["user_id"] = db.execute('SELECT id FROM users WHERE username = ?', username)[0]["id"]
 
-        flash('Successfully registered!')
+        flash('Você foi cadastrado com sucesso!')
 
         return redirect('/')
 
@@ -249,7 +249,7 @@ def sell():
     if request.method == "GET":
         symbols = []
         table_name = f"stocks_user{session.get('user_id')}"
-        rows = db.execute('SELECT DISTINCT stock_symbol FROM ? WHERE NOT stock_symbol="MONEY" GROUP BY stock_symbol HAVING SUM(shares) >= 1', table_name)
+        rows = db.execute('SELECT DISTINCT stock_symbol FROM ? WHERE NOT stock_symbol="DINHEIRO" GROUP BY stock_symbol HAVING SUM(shares) >= 1', table_name)
         for row in rows:
             symbols.append(row["stock_symbol"])
 
@@ -258,29 +258,29 @@ def sell():
     elif request.method == "POST":
         symbols = []
         table_name = f"stocks_user{session.get('user_id')}"
-        rows = db.execute('SELECT DISTINCT stock_symbol FROM ? WHERE NOT stock_symbol="MONEY" GROUP BY stock_symbol HAVING SUM(shares) >= 1', table_name)
+        rows = db.execute('SELECT DISTINCT stock_symbol FROM ? WHERE NOT stock_symbol="DINHEIRO" GROUP BY stock_symbol HAVING SUM(shares) >= 1', table_name)
         for row in rows:
             symbols.append(row["stock_symbol"])
 
         if request.form.get("symbol") not in symbols:
-            return apology("Invalid symbol")
+            return apology("Código de ação inválido")
 
         shares = db.execute("SELECT SUM(shares) FROM ? WHERE stock_symbol = ?", table_name, request.form.get("symbol"))[0]["SUM(shares)"]
 
         if not request.form.get("shares"):
-            return apology("No shares?")
+            return apology("Digite a quantidade de ações")
 
         elif int(request.form.get("shares")) > shares:
-            return apology("You don't have enough shares")
+            return apology("Você não tem tantas ações")
 
         elif int(request.form.get("shares")) <= 0:
-            return apology("Non-positive number of shares")
+            return apology("Quantidade de ações não positiva")
 
         else:
             current_price = lookup(request.form.get("symbol"))['price']
             money_received = current_price * int(request.form.get("shares"))
             db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, request.form.get("symbol"), -(int(request.form.get("shares"))), current_price, day_time())
-            db.execute("UPDATE users SET money = money + ? WHERE id = ?", money_received, session.get("user_id"))
+            db.execute("UPDATE users SET dinheiro = dinheiro + ? WHERE id = ?", money_received, session.get("user_id"))
 
         return redirect('/')
 
@@ -294,15 +294,15 @@ def add_money():
         return render_template('add_money.html')
 
     elif request.method == "POST":
-        current_money = float(db.execute('SELECT money FROM users WHERE id = ?', session.get('user_id'))[0]['money'])
+        current_money = float(db.execute('SELECT dinheiro FROM users WHERE id = ?', session.get('user_id'))[0]['dinheiro'])
         added_money = float(request.form.get('money'))
         new_money = current_money + added_money
 
         user_id = session.get("user_id")
         table_name = f'stocks_user{user_id}'
 
-        db.execute('UPDATE users SET money = ? WHERE id = ?', new_money, session.get('user_id'))
-        db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, "MONEY", 1, added_money, day_time())
+        db.execute('UPDATE users SET dinheiro = ? WHERE id = ?', new_money, session.get('user_id'))
+        db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, "DINHEIRO", 1, added_money, day_time())
 
         return redirect('/')
 
@@ -316,15 +316,15 @@ def remove_money():
         return render_template('remove_money.html')
 
     elif request.method == "POST":
-        current_money = float(db.execute('SELECT money FROM users WHERE id = ?', session.get('user_id'))[0]['money'])
+        current_money = float(db.execute('SELECT dinheiro FROM users WHERE id = ?', session.get('user_id'))[0]['dinheiro'])
         removed_money = float(request.form.get('money'))
         new_money = current_money - removed_money
 
         user_id = session.get("user_id")
         table_name = f'stocks_user{user_id}'
 
-        db.execute('UPDATE users SET money = ? WHERE id = ?', new_money, session.get('user_id'))
-        db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, "MONEY", -1, removed_money, day_time())
+        db.execute('UPDATE users SET dinheiro = ? WHERE id = ?', new_money, session.get('user_id'))
+        db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, "DINHEIRO", -1, removed_money, day_time())
 
         return redirect('/')
 
