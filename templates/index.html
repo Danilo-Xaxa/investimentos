@@ -1,17 +1,17 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Your Portfolio
+    Sua carteira
 {% endblock %}
 
 {% block main %}
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Symbol</th>
-                <th>Name</th>
-                <th>Shares</th>
-                <th>Price</th>
+                <th>Código</th>
+                <th>Empresa</th>
+                <th>Ações</th>
+                <th>Preço</th>
                 <th>TOTAL</th>
             </tr>
         </thead>
@@ -32,7 +32,7 @@
                 </tr>
             {% endfor %}
             <tr>
-                <td>MONEY</td>
+                <td>DINHEIRO</td>
                 <td colspan="3"></td>
                 <td>{{ money | usd }}</td>
             </tr>

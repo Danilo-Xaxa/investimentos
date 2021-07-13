@@ -1,7 +1,7 @@
 <!-- Almost all from distribution code (Harvard's CS50) -->
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="pt-br">
 
     <head>
 
@@ -27,27 +27,27 @@
     <body>
 
         <nav id="nav" class="navbar navbar-expand-md navbar-light bg-light border">
-            <a class="navbar-brand" href="/"><span class="red">Your Portfolio</span></a>
+            <a class="navbar-brand" href="/"><span class="red">INVESTIMENTOS</span></a>
             <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbar">
                 {% if session.user_id %}
                     <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/quote">Quote</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/add_money">Add Money</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/remove_money">Remove Money</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/quote">Cotações</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/buy">Comprar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/sell">Vender</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/history">Histórico</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/add_money">Adicionar Dinheiro</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/remove_money">Remover Dinheiro</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout">Sair</a></li>
                     </ul>
                 {% else %}
                     <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/register">Cadastrar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">Entrar</a></li>
                     </ul>
                 {% endif %}
             </div>
@@ -66,7 +66,7 @@
         </main>
 
         <footer class="small text-center text-muted">
-            <p>Data provided for free by <a href="https://iextrading.com/developer"><span class="red">IEX</span></a> - View <a href="https://iextrading.com/api-exhibit-a/"><span class="red">IEX’s Terms of Use</span></a></p>
+            <p>Dados fornecidos gratuitamente por <a href="https://iextrading.com/developer"><span class="red">IEX</span></a> - Veja os <a href="https://iextrading.com/api-exhibit-a/"><span class="red">Termos de Uso do IEX</span></a></p>
         </footer>
 
     </body>

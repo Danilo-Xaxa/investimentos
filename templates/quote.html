@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Quote
+    Cotações
 {% endblock %}
 
 {% block main %}
     <form action="/quote" method="post">
         <div class="form-group">
-            <input class="form-control" name="symbol" placeholder="Stock symbol" type="text">
+            <input class="form-control" name="symbol" placeholder="Código da ação" type="text">
         </div>
 
-        <button class="btn btn-primary" type="submit">Quote</button>
+        <button class="btn btn-primary" type="submit">Cotar</button>
     </form>
 {% endblock %}
