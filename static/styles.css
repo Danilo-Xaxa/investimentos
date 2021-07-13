@@ -14,23 +14,10 @@ nav .navbar-brand
     font-size: xx-large;
 }
 
-/* Colors for brand */
-nav .navbar-brand .blue
-{
-    color: #537fbe;
-}
 nav .navbar-brand .red
 {
     color: var(--cinnabar);
     font-weight: 600;
-}
-nav .navbar-brand .yellow
-{
-    color: #f5b82e;
-}
-nav .navbar-brand .green
-{
-    color: #2e944b;
 }
 
 main .form-control
@@ -93,12 +80,12 @@ span.red {
 
 .alert-primary {
     color: white;
-    background-color: #E67F7A;
-    border-color: #E67F7A !important;
+    background-color: var(--iris);
+    border-color: var(--iris) !important;
 }
 
 .btn-primary {
-    color: #fff;
+    color: white;
     background-color: var(--iris);
     border-color: var(--iris);
 }
@@ -107,4 +94,12 @@ span.red {
     color: black;
     background-color: var(--pear);
     border-color: var(--pear);
+}
+
+span.pear {
+    color: var(--pear);
+}
+
+span.iris {
+    color: var(--iris);
 }

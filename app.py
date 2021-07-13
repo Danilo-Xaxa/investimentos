@@ -50,13 +50,16 @@ def day_time():
     return f"{day} {time}"
 
 # Validates password strength
+"""
 def strong_enough(password):
-    '''Checks if the password has any number, any digit and if it's long enough (8 digits)'''
+    '''Checks if the password has any number, any letter, any especial character and if it's long enough (8 digits)'''
+    special_char = "!@#$%^&*()-+?_=,<>/'}\|""=[]{`´"
 
-    if any(char.isdigit() for char in password) and any(char.isalpha() for char in password) and len(password) >= 8:
+    if any(char.isdigit() for char in password) and any(char.isalpha() for char in password) and any(char in special_char for char in password) and len(password) >= 8:
         return True
     else:
         return False
+"""
 
 
 @app.route("/")
@@ -130,7 +133,7 @@ def history():
     return render_template('history.html', rows=rows)
 
 
-# *Lines 134-179 from distribution code (Harvard's CS50)*
+# *Lines 137-182 from distribution code (Harvard's CS50)*
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -227,8 +230,8 @@ def register():
         elif request.form.get('password') != request.form.get('confirmation'):
             return apology('As senhas digitadas não correspondem')
 
-        elif not strong_enough(request.form.get('password')):
-            return apology('Senha curta demais ou sem número/letra')
+        # elif not strong_enough(request.form.get('password')):
+            # return apology('Senha curta demais ou sem número/letra/símbolo')
 
         username = request.form.get('username')
         password = request.form.get('password')
@@ -329,7 +332,7 @@ def remove_money():
         return redirect('/')
 
 
-# *Lines 333-342 from distribution code (Harvard's CS50)*
+# *Lines 336-345 from distribution code (Harvard's CS50)*
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
