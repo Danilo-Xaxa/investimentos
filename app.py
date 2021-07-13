@@ -39,20 +39,22 @@ db = SQL("sqlite:///finance.db")
 if not os.environ.get("API_KEY"):
     os.environ["API_KEY"] = "pk_f92f4ef6b5da4f60a49348b9cde8836b"
 
-# Returns perfectly formated day and time
+# Gets day and time
 def day_time():
+    '''Returns perfectly formated day and time'''
+
     day = date.today().strftime("%b-%d-%Y")
     time = datetime.now().strftime("%H:%M:%S")
     return f"{day} {time}"
 
-""" # Checks if password is strong enough (use only when the project is finished)
-def is_strong(password):
-    Checking if the password has any number and is long enough (8 digits)
-    if any(char.isdigit() for char in password) and len(password) >= 8:
+# Validates password strength
+def strong_enough(password):
+    '''Checks if the password has any number, any digit and if it's long enough (8 digits)'''
+
+    if any(char.isdigit() for char in password) and any(char.isalpha() for char in password) and len(password) >= 8:
         return True
     else:
         return False
-"""
 
 
 @app.route("/")
@@ -155,6 +157,7 @@ def login():
         session["user_id"] = rows[0]["id"]
 
         # Redirect user to home page
+        flash('Successfully logged in!')
         return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
@@ -221,14 +224,16 @@ def register():
         elif request.form.get('password') != request.form.get('confirmation'):
             return apology('Typed passwords are not the same')
 
-        #elif not is_strong(request.form.get('password')):
-            #return apology('Password too short or no numbers found')
+        elif not strong_enough(request.form.get('password')):
+            return apology('Password too short or no numbers/letters in it')
 
         username = request.form.get('username')
         password = request.form.get('password')
         db.execute("INSERT INTO users (username, hash) VALUES(?, ?)", username, generate_password_hash(password))
 
         session["user_id"] = db.execute('SELECT id FROM users WHERE username = ?', username)[0]["id"]
+
+        flash('Successfully registered!')
 
         return redirect('/')
 

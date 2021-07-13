@@ -1,7 +1,10 @@
 @charset "UTF-8";
 
 :root {
-    --red: #ea433b;
+    --cinnabar: #ea433b;
+    --xitekic: #040414;
+    --iris: #5953cc;
+    --pear: #DAE332;
 }
 
 nav .navbar-brand
@@ -17,7 +20,7 @@ nav .navbar-brand .blue
 }
 nav .navbar-brand .red
 {
-    color: var(--red);
+    color: var(--cinnabar);
 }
 nav .navbar-brand .yellow
 {
@@ -60,10 +63,46 @@ footer > p {
     color: white !important;
 }
 
-footer > a {
-    color: var(--red) !important; /* não funciona (?) */
+body {
+    background-color: var(--xitekic) !important;
+    color: white !important;
 }
 
-body {
-    background-color: purple !important;
+span.red {
+    color: var(--cinnabar) !important;
+}
+
+.table {
+    color: white !important;
+}
+
+#nav {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(0, 0, 0, 0.5) !important;
+}
+
+.nav-link {
+    color: #E67F7A !important;
+}
+
+#meme {
+    border: none !important;
+}
+
+.alert-primary {
+    color: white;
+    background-color: #E67F7A;
+    border-color: #E67F7A !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--iris);
+    border-color: var(--iris);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle{
+    color: black;
+    background-color: var(--pear);
+    border-color: var(--pear);
 }
