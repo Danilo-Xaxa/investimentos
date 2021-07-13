@@ -1,3 +1,4 @@
+# *Lines 2-37 from distribution code (Harvard's CS50)*
 import os
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
@@ -35,7 +36,8 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
 
-# Make sure API key is set (using my personal key if needed)
+
+# Using my personal key if it's needed to set api key
 if not os.environ.get("API_KEY"):
     os.environ["API_KEY"] = "pk_f92f4ef6b5da4f60a49348b9cde8836b"
 
@@ -128,6 +130,7 @@ def history():
     return render_template('history.html', rows=rows)
 
 
+# *Lines 134-179 from distribution code (Harvard's CS50)*
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -326,6 +329,7 @@ def remove_money():
         return redirect('/')
 
 
+# *Lines 333-342 from distribution code (Harvard's CS50)*
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
