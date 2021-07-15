@@ -1,4 +1,6 @@
-# *Lines 2-37 from distribution code (Harvard's CS50)*
+from datetime import datetime, date
+from smtplib import SMTP
+# *Lines 4-? from distribution code (Harvard's CS50)*
 import os
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
@@ -6,7 +8,6 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
-from datetime import datetime, date
 from helpers import apology, login_required, lookup, usd
 
 
@@ -144,20 +145,20 @@ def login():
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-        # Ensure username was submitted
-        if not request.form.get("username"):
-            return apology("Nenhum nome digitado", 403)
+        # Ensure email was submitted
+        if not request.form.get("email"):
+            return apology("Nenhum e-mail digitado")
 
         # Ensure password was submitted
         elif not request.form.get("password"):
-            return apology("Nenhuma senha digitada", 403)
+            return apology("Nenhuma senha digitada")
 
         # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+        rows = db.execute("SELECT * FROM users WHERE email = ?", request.form.get("email"))
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("Nome ou senha inválida", 403)
+            return apology("Nome ou senha inválida")
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -214,15 +215,18 @@ def register():
         return render_template('register.html')
 
     elif request.method == "POST":
-        all_usernames = []
-        for row in db.execute('SELECT username FROM users'):
-            all_usernames.append(row["username"])
+        all_emails = []
+        for row in db.execute('SELECT email FROM users'):
+            all_emails.append(row["email"])
 
         if not request.form.get('username'):
             return apology('Nenhum nome digitado')
 
-        elif request.form.get('username') in all_usernames:
-            return apology('Nome já cadastrado')
+        elif not request.form.get('email'):
+            return apology('Você não tem e-mail?')
+
+        elif request.form.get('email') in all_emails:
+            return apology('E-mail já cadastrado')
 
         elif not request.form.get('password') or not request.form.get('confirmation'):
             return apology('Digite a senha duas vezes')
@@ -235,9 +239,23 @@ def register():
 
         username = request.form.get('username')
         password = request.form.get('password')
-        db.execute("INSERT INTO users (username, hash) VALUES(?, ?)", username, generate_password_hash(password))
+        email = request.form.get('email')
+        db.execute("INSERT INTO users (username, email, hash) VALUES(?, ?, ?)", username, email, generate_password_hash(password))
 
         session["user_id"] = db.execute('SELECT id FROM users WHERE username = ?', username)[0]["id"]
+
+        
+        texto = f"Parabéns! Você foi registrado com sucesso, {username}!"
+        assunto = "Registrado"
+        msg_email = (f"Subject: {assunto}\n\n{texto}")
+        
+        EMAIL_REMETENTE = os.getenv('EMAIL_REMETENTE')
+        EMAIL_SENHA = os.getenv('EMAIL_SENHA')
+
+        servidor = SMTP("smtp.gmail.com", 587)
+        servidor.starttls()
+        servidor.login(EMAIL_REMETENTE, EMAIL_SENHA)
+        servidor.sendmail(EMAIL_REMETENTE, email, msg_email.encode("utf8"))
 
         flash('Você foi cadastrado com sucesso!')
 
