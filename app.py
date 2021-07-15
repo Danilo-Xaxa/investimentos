@@ -1,6 +1,6 @@
 from datetime import datetime, date
 from smtplib import SMTP
-# *Lines 4-? from distribution code (Harvard's CS50)*
+# *Lines 4-38 from distribution code (Harvard's CS50)*
 import os
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
@@ -134,7 +134,7 @@ def history():
     return render_template('history.html', rows=rows)
 
 
-# *Lines 137-182 from distribution code (Harvard's CS50)*
+# *Lines 138-183 from distribution code (Harvard's CS50)*
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -350,7 +350,7 @@ def remove_money():
         return redirect('/')
 
 
-# *Lines 336-345 from distribution code (Harvard's CS50)*
+# *Lines 354-363 from distribution code (Harvard's CS50)*
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
