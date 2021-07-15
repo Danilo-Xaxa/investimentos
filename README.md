@@ -6,7 +6,7 @@ DX Invest é uma aplicação web que simula compra e venda de ações da bolsa d
 
 Ao acessar o site, o usuário pode criar uma conta clicando em "Cadastrar" na parte superior direita. Ao se cadastrar, chegará um e-mail avisando que o cadastro foi realizado com sucesso, mas não há necessidade de confirmar cadastro via e-mail.
 
-Na página inicial, o usuário tem acesso à sua carteira de ações (portfólio). Inicialmente há 10.000 dólares em caixa e nenhuma ação, mas depois de comprar e vender ações, você poderá ver quanto você perdeu ou ganhou com os seus investimentos.
+Na página inicial, o usuário tem acesso à sua carteira de ações (portfólio). Inicialmente há 10.000 dólares em caixa e nenhuma ação, mas depois de comprar e vender ações, você poderá ver quanto você ganhou ou perdeu com os seus investimentos.
 
 ---
 
@@ -30,7 +30,7 @@ OBS: Não use nenhuma senha importante que você usa em outros lugares, pois ela
 
 OBS 2: A aplicação ainda não suporta lidar com e-mails inexistentes ou navegação diretamente pela barra de URL.
 
-OBS 3: Embora a página inicial redirecione para "/login" se o usuário não está cadastrado ou não entrou, ele deve se cadastrar antes de qualquer outra coisa.
+OBS 3: Embora a página inicial redirecione para "/login" se o usuário não está cadastrado, ele deve se cadastrar antes de qualquer outra coisa.
 
 ---
 
