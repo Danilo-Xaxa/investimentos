@@ -1,5 +1,7 @@
 # DX Invest
 
+Acesse aqui: http://daniloxaxa.pythonanywhere.com
+
 DX Invest é uma aplicação web que simula compra e venda de ações da bolsa de valores norte-americana.
 
 Ao acessar o site, o usuário pode criar uma conta clicando em "Cadastrar" na parte superior direita. Ao se cadastrar, chegará um e-mail avisando que o cadastro foi realizado com sucesso, mas não há necessidade de confirmar cadastro via e-mail.
