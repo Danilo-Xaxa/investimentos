@@ -28,10 +28,6 @@ Na página inicial, o usuário tem acesso à sua carteira de ações (portfólio
 
 OBS: Não use nenhuma senha importante que você usa em outros lugares, pois ela pode acabar vazando. Já que o medidor de força de senha está desabilitado, o usuário pode usar qualquer senha simples que desejar, como "123" ou "abc".
 
-OBS 2: A aplicação ainda não suporta lidar com e-mails inexistentes ou navegação diretamente pela barra de URL.
-
-OBS 3: Embora a página inicial redirecione para "/login" se o usuário não está cadastrado, ele deve se cadastrar antes de qualquer outra coisa.
-
 ---
 
 O projeto foi desenvolvido com Python e seu framework Flask no back-end, sem nenhum uso de JavaScript (front-end estático). O banco de dados utilizado é o SQLite. Para alguns detalhes visuais, o Bootstrap foi utilizado.

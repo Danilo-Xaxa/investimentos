@@ -158,7 +158,7 @@ def login():
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("Nome ou senha inválida")
+            return apology("Crie uma conta antes!")
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
