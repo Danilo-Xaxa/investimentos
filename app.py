@@ -40,7 +40,7 @@ db = SQL("sqlite:///finance.db")
 
 # Using my personal key if it's needed to set api key
 if not os.environ.get("API_KEY"):
-    os.environ["API_KEY"] = "pk_f92f4ef6b5da4f60a49348b9cde8836b"
+    os.environ["API_KEY"] = os.getenv('API_KEY')
 
 # Gets day and time
 def day_time():
