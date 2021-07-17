@@ -158,7 +158,7 @@ def login():
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("Crie uma conta antes!")
+            return apology("E-mail ou senha inválida!")
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -223,10 +223,10 @@ def register():
             return apology('Nenhum nome digitado')
 
         elif not request.form.get('email'):
-            return apology('Você não tem e-mail?')
+            return apology('Nenhum e-mail digitado')
 
         elif request.form.get('email') in all_emails:
-            return apology('E-mail já cadastrado')
+            return apology('E-mail já cadastrado, vá para *entrar*')
 
         elif not request.form.get('password') or not request.form.get('confirmation'):
             return apology('Digite a senha duas vezes')
