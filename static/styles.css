@@ -96,10 +96,10 @@ span.red {
     border-color: var(--pear);
 }
 
-span.pear {
+span.pear > a {
     color: var(--pear);
 }
 
-span.iris {
+span.iris > a {
     color: var(--iris);
 }
