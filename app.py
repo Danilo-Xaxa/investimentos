@@ -1,6 +1,7 @@
-from datetime import datetime, date
+from datetime import datetime
 from smtplib import SMTP
-# *Lines 4-38 from distribution code (Harvard's CS50)*
+from pytz import timezone
+# *Lines 5-39 from distribution code (Harvard's CS50)*
 import os
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
@@ -46,8 +47,9 @@ if not os.environ.get("API_KEY"):
 def day_time():
     '''Returns perfectly formated day and time'''
 
-    day = date.today().strftime("%b-%d-%Y")
-    time = datetime.now().strftime("%H:%M:%S")
+    day = datetime.now(timezone('America/Recife')).strftime("%d-%m-%Y")
+    time = datetime.now(timezone('America/Recife')).strftime("%H:%M:%S")
+
     return f"{day} {time}"
 
 # Validates password strength
@@ -134,7 +136,7 @@ def history():
     return render_template('history.html', rows=rows)
 
 
-# *Lines 138-183 from distribution code (Harvard's CS50)*
+# *Lines 140-185 from distribution code (Harvard's CS50)*
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -350,7 +352,7 @@ def remove_money():
         return redirect('/')
 
 
-# *Lines 354-363 from distribution code (Harvard's CS50)*
+# *Lines 356-365 from distribution code (Harvard's CS50)*
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
