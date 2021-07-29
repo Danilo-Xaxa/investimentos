@@ -43,14 +43,14 @@ db = SQL("sqlite:///finance.db")
 if not os.environ.get("API_KEY"):
     os.environ["API_KEY"] = os.getenv('API_KEY')
 
-# Gets day and time
-def day_time():
-    '''Returns perfectly formated day and time'''
+# Gets time and date
+def time_date():
+    '''Returns perfectly formated time and date'''
 
-    day = datetime.now(timezone('America/Recife')).strftime("%d-%m-%Y")
     time = datetime.now(timezone('America/Recife')).strftime("%H:%M:%S")
+    date = datetime.now(timezone('America/Recife')).strftime("%d-%m-%Y")
 
-    return f"{day} {time}"
+    return f"{time} {date}"
 
 # Validates password strength
 """
@@ -118,7 +118,7 @@ def buy():
 
         table_name = f'stocks_user{user_id}'
         db.execute("CREATE TABLE IF NOT EXISTS ? (stock_symbol TEXT NOT NULL, shares NUMBER NOT NULL, price NUMBER NOT NULL, time TEXT NOT NULL)", table_name)
-        db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, stock_symbol, shares, price, day_time())
+        db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, stock_symbol, shares, price, time_date())
         db.execute("UPDATE users SET dinheiro = ? WHERE id = ?", (user_money - total_purchase_cost), user_id)
 
         return redirect('/')
@@ -302,7 +302,7 @@ def sell():
         else:
             current_price = lookup(request.form.get("symbol"))['price']
             money_received = current_price * int(request.form.get("shares"))
-            db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, request.form.get("symbol"), -(int(request.form.get("shares"))), current_price, day_time())
+            db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, request.form.get("symbol"), -(int(request.form.get("shares"))), current_price, time_date())
             db.execute("UPDATE users SET dinheiro = dinheiro + ? WHERE id = ?", money_received, session.get("user_id"))
 
         return redirect('/')
@@ -325,7 +325,7 @@ def add_money():
         table_name = f'stocks_user{user_id}'
 
         db.execute('UPDATE users SET dinheiro = ? WHERE id = ?', new_money, session.get('user_id'))
-        db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, "DINHEIRO", 1, added_money, day_time())
+        db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, "DINHEIRO", 1, added_money, time_date())
 
         return redirect('/')
 
@@ -347,7 +347,7 @@ def remove_money():
         table_name = f'stocks_user{user_id}'
 
         db.execute('UPDATE users SET dinheiro = ? WHERE id = ?', new_money, session.get('user_id'))
-        db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, "DINHEIRO", -1, removed_money, day_time())
+        db.execute("INSERT INTO ? (stock_symbol, shares, price, time) VALUES(?, ?, ?, ?)", table_name, "DINHEIRO", -1, removed_money, time_date())
 
         return redirect('/')
 
