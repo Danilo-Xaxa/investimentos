@@ -34,20 +34,20 @@
             <div class="collapse navbar-collapse" id="navbar">
                 {% if session.user_id %}
                     <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/quote">Cotações</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/buy">Comprar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/sell">Vender</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/history">Histórico</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/add_money">Adicionar Dinheiro</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/remove_money">Remover Dinheiro</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/cotacoes">Cotações</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/comprar">Comprar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/vender">Vender</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/historico">Histórico</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/adicionar_dinheiro">Adicionar Dinheiro</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/remover_dinheiro">Remover Dinheiro</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/logout">Sair</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/sair">Sair</a></li>
                     </ul>
                 {% else %}
                     <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/register">Cadastrar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/login">Entrar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/cadastrar">Cadastrar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/entrar">Entrar</a></li>
                     </ul>
                 {% endif %}
             </div>

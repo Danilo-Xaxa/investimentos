@@ -56,8 +56,8 @@ def time_date():
 """
 def strong_enough(password):
     '''Checks if the password has any number, any letter, any especial character and if it's long enough (8 digits)'''
-    special_char = "!@#$%^&*()-+?_=,<>/'}\|""=[]{`´"
 
+    special_char = "!@#$%^&*()-+?_=,<>/'}\|""=[]{`´"
     if any(char.isdigit() for char in password) and any(char.isalpha() for char in password) and any(char in special_char for char in password) and len(password) >= 8:
         return True
     else:
@@ -88,7 +88,7 @@ def index():
     return render_template('index.html', rows=rows, money=money, portfolio_value=portfolio_value)
 
 
-@app.route("/buy", methods=["GET", "POST"])
+@app.route("/comprar", methods=["GET", "POST"])
 @login_required
 def buy():
     """Buy shares of stock"""
@@ -124,7 +124,7 @@ def buy():
         return redirect('/')
 
 
-@app.route("/history")
+@app.route("/historico")
 @login_required
 def history():
     """Show history of transactions"""
@@ -137,7 +137,7 @@ def history():
 
 
 # *Lines 140-185 from distribution code (Harvard's CS50)*
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/entrar", methods=["GET", "POST"])
 def login():
     """Log user in"""
 
@@ -174,7 +174,7 @@ def login():
         return render_template("login.html")
 
 
-@app.route("/logout")
+@app.route("/sair")
 def logout():
     """Log user out"""
 
@@ -185,7 +185,7 @@ def logout():
     return redirect("/")
 
 
-@app.route("/quote", methods=["GET", "POST"])
+@app.route("/cotacoes", methods=["GET", "POST"])
 @login_required
 def quote():
     """Get stock quote."""
@@ -209,7 +209,7 @@ def quote():
         return render_template('quoted.html', quoted_text=quoted_text, price=price)
 
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/cadastrar", methods=["GET", "POST"])
 def register():
     """Register user"""
 
@@ -264,7 +264,7 @@ def register():
         return redirect('/')
 
 
-@app.route("/sell", methods=["GET", "POST"])
+@app.route("/vender", methods=["GET", "POST"])
 @login_required
 def sell():
     """Sell shares of stock"""
@@ -308,7 +308,7 @@ def sell():
         return redirect('/')
 
 
-@app.route("/add_money", methods=["GET", "POST"])
+@app.route("/adicionar_dinheiro", methods=["GET", "POST"])
 @login_required
 def add_money():
     """Add some money"""
@@ -330,7 +330,7 @@ def add_money():
         return redirect('/')
 
 
-@app.route("/remove_money", methods=["GET", "POST"])
+@app.route("/remover_dinheiro", methods=["GET", "POST"])
 @login_required
 def remove_money():
     """Remove some money"""
