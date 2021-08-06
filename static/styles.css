@@ -103,3 +103,23 @@ span.pear > a {
 span.iris > a {
     color: var(--iris);
 }
+
+/* STICKY FOOTER:
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    margin-top: auto;
+}
+
+footer * {
+    margin: 10px auto 10px auto;
+}
+*/
