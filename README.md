@@ -30,9 +30,10 @@ OBS: Não use nenhuma senha importante que você usa em outros lugares, pois ela
 
 ---
 
-O projeto foi desenvolvido com Python e seu framework Flask no back-end, sem nenhum uso de JavaScript (front-end estático). O banco de dados utilizado é o SQLite. Para alguns detalhes visuais, o Bootstrap foi utilizado.
+O projeto foi desenvolvido com Python e o framework Flask no back-end, sem nenhum uso de JavaScript (front-end estático). O banco de dados utilizado é o SQLite. Para alguns detalhes de design/layout, o Bootstrap foi utilizado.
 
 Todos os dados das ações são fornecidos gratuitamente e em tempo real via IEX Cloud.
+
 A hospedagem foi realizada via PythonAnywhere.
 
 O projeto é inspirado no desafio Finance do curso CS50 de Harvard e tem fins apenas educacionais.
