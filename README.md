@@ -20,9 +20,9 @@ Na página inicial, o usuário tem acesso à sua carteira de ações (portfólio
 
 * Em "Histórico", o usuário pode ver qualquer transação feita e todos os seus detalhes, até mesmo as transações de adicionar e remover dinheiro.
 
-* Em "Adicionar Dinheiro", o usuário pode adicionar em caixa qualquer quantia de dinheiro desejada.
+* Em "Depositar Dinheiro", o usuário pode adicionar em caixa qualquer quantia de dinheiro desejada.
 
-* Em "Remover Dinheiro", o usuário pode remover em caixa qualquer quantia de dinheiro desejada.
+* Em "Sacar Dinheiro", o usuário pode remover em caixa qualquer quantia de dinheiro desejada.
 
 * Em "Sair", o usuário desloga e é redirecionado para a página de login, mas vale constar que o site usa sessions para evitar que o usuário tenha que entrar repetitivamente diversas vezes.
 

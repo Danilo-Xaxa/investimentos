@@ -41,7 +41,7 @@ db = SQL("sqlite:///finance.db")
 
 # Using my personal key if it's needed to set api key
 if not os.environ.get("API_KEY"):
-    os.environ["API_KEY"] = os.getenv('API_KEY')
+    os.environ["FINANCE_API_KEY"] = os.getenv('FINANCE_API_KEY')
 
 # Gets time and date
 def time_date():
@@ -246,7 +246,7 @@ def register():
 
         session["user_id"] = db.execute('SELECT id FROM users WHERE username = ?', username)[0]["id"]
 
-        
+        '''
         texto = f"Parabéns! Você foi registrado com sucesso, {username}!"
         assunto = "Registrado"
         msg_email = (f"Subject: {assunto}\n\n{texto}")
@@ -258,6 +258,7 @@ def register():
         servidor.starttls()
         servidor.login(EMAIL_REMETENTE, EMAIL_SENHA)
         servidor.sendmail(EMAIL_REMETENTE, email, msg_email.encode("utf8"))
+        '''
 
         flash('Você foi cadastrado com sucesso!')
 
@@ -308,7 +309,7 @@ def sell():
         return redirect('/')
 
 
-@app.route("/adicionar_dinheiro", methods=["GET", "POST"])
+@app.route("/depositar_dinheiro", methods=["GET", "POST"])
 @login_required
 def add_money():
     """Add some money"""
@@ -330,7 +331,7 @@ def add_money():
         return redirect('/')
 
 
-@app.route("/remover_dinheiro", methods=["GET", "POST"])
+@app.route("/sacar_dinheiro", methods=["GET", "POST"])
 @login_required
 def remove_money():
     """Remove some money"""

@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Adicionar Dinheiro
+Depositar Dinheiro
 {% endblock %}
 
 {% block main %}
-    <form action="/adicionar_dinheiro" method="post">
+    <form action="/depositar_dinheiro" method="post">
         <div class="form-group">
-            <input class="form-control" name="money" placeholder="Dinheiro" type="number" min="1" step="any">
+            <input class="form-control" name="money" placeholder="Quantia" type="number" min="1" step="any">
         </div>
 
-        <button class="btn btn-primary" type="submit">Adicionar Dinheiro</button>
+        <button class="btn btn-primary" type="submit">Depositar</button>
     </form>
 {% endblock %}

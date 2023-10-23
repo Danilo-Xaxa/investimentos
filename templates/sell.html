@@ -8,7 +8,7 @@
     <form action="/vender" method="post">
         <div class="form-group">
             <select class="form-control" name="symbol">
-                <option disabled="" selected="" value="">Código</option>
+                <option disabled="" selected="" value="">Código da ação</option>
                 {% for symbol in symbols %}
                     <option value="{{ symbol }}">{{ symbol }}</option>
                 {% endfor %}
